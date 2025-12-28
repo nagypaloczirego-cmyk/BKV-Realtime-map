@@ -412,4 +412,3 @@ def trip_details(trip_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
- dab0cf4150e19a1efd2c62702252ccf900e9506a
