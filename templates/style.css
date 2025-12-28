@@ -1,3 +1,4 @@
+
 #menu {
   position: absolute;
   top: 10px;
@@ -25,3 +26,32 @@
 .vehicle:hover {
   background: #f0f0f0;
 }
+=======
+#menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2000;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+#vehiclesView {
+  display: none;
+  padding: 10px;
+  font-family: Arial;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.vehicle {
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.vehicle:hover {
+  background: #f0f0f0;
+}
+>>>>>>> dab0cf4150e19a1efd2c62702252ccf900e9506a
