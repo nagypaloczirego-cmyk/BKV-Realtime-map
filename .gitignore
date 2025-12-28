@@ -1,0 +1,12 @@
+# --- GTFS nagy fájlok ---
+budapest_gtfs (1)/
+gtfs/stop_times.txt
+gtfs/trips.txt
+gtfs/routes.txt
+
+# --- Telepítők ---
+*.exe
+
+# --- Python ---
+__pycache__/
+*.pyc
