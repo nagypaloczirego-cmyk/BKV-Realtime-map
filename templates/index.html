@@ -52,11 +52,13 @@
 
   /* --- Ikonok --- */
   const ICONS = {
-    bus: "/icons/busz.png.png",
-    tram: "/icons/villamos.png.png",
-    trolley: "/icons/trolibusz.png.png",
-    hev: "/icons/hév.png.png"
-  };
+  bus: "/icons/busz.png.png",
+  tram: "/icons/villamos.png.png",
+  trolley: "/icons/trolibusz.png.png",
+  hev: "/icons/hév.png.png",
+  train: "/icons/vonat.png" // ❗ nincs duplázva
+};
+
 
   /* 🎄 Feldíszített járművek rendszám szerint */
   const DECORATED = ["V1347","V1608","V1441","V2038","V3873","V3888","V4012","V4120","V4064","JARMU1","BPI829","T9100"];
@@ -64,35 +66,55 @@
 
   /* 🔥 Jármű osztályozás — MOSTANTÓL PONTOS */
   function detectMode(v) {
-    const model = (v.vehicle_model || "").toLowerCase();
-    const route = (v.route_id || "").toLowerCase();
+  const model = (v.vehicle_model || "").toLowerCase();
+  const route = (v.route_id || "").toLowerCase();
 
-    // HÉV külön
-    if (route.startsWith("h")) return "hev";
+  // 🚆 Vonat – ahogy kérted: simán return
+  if (
+    model.includes("vonat") ||
+    model.includes("train") ||
+    model.includes("rail")
+  ) return "train";
 
-    // Trolibusz
-    if (model.includes("trol") || model.includes("trollino")) return "trolley";
+  // 🚈 HÉV külön
+  if (route.startsWith("h")) return "hev";
 
-    // 🔥 Ezek BIZTOS buszok (megelőzik a villamos szűrést!)
-    if (
-      model.includes("mercedes") ||
-      model.includes("conecto") ||
-      model.includes("volvo") ||
-      model.includes("man")
-    ) return "bus";
+  // 🚎 Trolibusz
+  if (
+    model.includes("trol") ||
+    model.includes("trollino")
+  ) return "trolley";
 
-    // 🚋 Villamosok pontos szűrése (TW 6000 szóközzel!)
-    if (
-      model.includes("villamos") || model.includes("tram") ||
-      model.includes("caf") || model.includes("combino") ||
-      model.includes("tatra") || model.includes("tátra") ||
-      model.includes("tw 6000") ||  // << kijavítva
-      model.includes("ganz") ||
-      model.includes("kcsv7")
-    ) return "tram";
+  // 🚌 BUSZ – külön, pontos lista
+  if (
+    model.includes("volvo") ||
+    model.includes("mercedes") ||
+    model.includes("conecto") ||
+    model.includes("autóbusz") ||
+    model.includes("busz") ||
+    model.includes("bus") ||
+    model.includes("midi") ||
+    model.includes("urbino") ||
+    model.includes("vanhool")
+  ) return "bus";
 
-    return "bus"; // minden más busz
-  }
+  // 🚋 Villamos
+  if (
+    model.includes("villamos") ||
+    model.includes("tram") ||
+    model.includes("caf") ||
+    model.includes("combino") ||
+    model.includes("tatra") ||
+    model.includes("tátra") ||
+    model.includes("tw 6000") ||
+    model.includes("ganz") ||
+    model.includes("kcsv7")
+  ) return "tram";
+
+  // 🚌 Default
+  return "train";
+}
+
 
 
   function makeIcon(url) {
